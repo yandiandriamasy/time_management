@@ -1,0 +1,28 @@
+{ 
+
+    "terminal.integrated.profiles.windows": { 
+
+        "Anaconda Prompt": { 
+
+            "source": "PowerShell", 
+
+            "args": [ 
+
+                "powershell", 
+
+                "-NoExit", 
+
+                "-ExecutionPolicy ByPass", 
+
+                "-NoProfile", 
+
+                "-File C:\\Users\\FR28535\\AppData\\Local\\anaconda3\\shell\\condabin\\conda-hook.ps1", 
+
+            ], 
+
+        }, 
+    }, 
+
+    "terminal.integrated.defaultProfile.windows": "Anaconda Prompt", 
+    "win-ca.inject": "append"
+} 
