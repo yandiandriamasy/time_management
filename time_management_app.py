@@ -46,7 +46,9 @@ def end_activity():
 
 # Streamlit app
 def main():
-    st.write(st.secrets["NOTION_TOKEN"])
+    a = st.secrets("NOTION_TOKEN")
+    st.write(a)
+    st.write(f"test :{a} fin test")
     st.sidebar.title("🗄 Menu")
     pages = ["⌚ Time Management", "👀 Visualize your timeline"]
     page = st.sidebar.radio("Go to", pages)
