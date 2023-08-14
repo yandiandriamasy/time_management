@@ -4,7 +4,6 @@ version = "0.0.1"
 description = ""
 authors = ["Yandi Andriamasy <yandi.andriamasy@sicara.com>"]
 readme = "README.md"
-packages = [{include = "time_management"}]
 
 [tool.poetry.dependencies]
 python = "^3.10.10"
