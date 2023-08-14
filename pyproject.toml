@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "time_management"}]
 
 [tool.poetry.dependencies]
-python = "3.10.10"
+python = "^3.10.10"
 pandas = "^2.0.3"
 streamlit = "^1.25.0"
 notion-client = "^2.0.0"
