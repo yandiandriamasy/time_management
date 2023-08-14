@@ -7,7 +7,6 @@ import os
 
 def get_current_hour() -> str:
     current_time = datetime.datetime.now()
-    os["NOTION_TOKEN"]
     return f"{current_time.hour}:{current_time.minute}"
 
 
@@ -47,6 +46,7 @@ def end_activity():
 
 # Streamlit app
 def main():
+    os["NOTION_TOKEN"]
     st.sidebar.title("🗄 Menu")
     pages = ["⌚ Time Management", "👀 Visualize your timeline"]
     page = st.sidebar.radio("Go to", pages)
