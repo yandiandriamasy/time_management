@@ -46,7 +46,7 @@ def end_activity():
 
 # Streamlit app
 def main():
-    a = st.secrets("NOTION_TOKEN")
+    a = st.secrets["NOTION_TOKEN"]
     st.write(a)
     st.write(f"test :{a} fin test")
     st.sidebar.title("🗄 Menu")
