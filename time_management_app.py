@@ -4,16 +4,19 @@ import time
 import pandas as pd
 import os
 from connect_to_notion import write_new_row
+import pytz
+tz = pytz.timezone('Europe/Berlin')
+
 
 def get_current_hour() -> str:
-    current_time = datetime.datetime.now()
+    current_time = datetime.datetime.now(tz)
     return f"{current_time.hour}:{current_time.minute}"
 
 
 def start_activity():
     st.session_state.activity_in_progress = True
     st.session_state.activity_name = st.session_state.widget
-    st.session_state.activity_start = datetime.datetime.now()
+    st.session_state.activity_start = datetime.datetime.now(tz)
     with open(
         f"{st.session_state.activity_start.date()}.txt", "a", encoding="utf-8"
     ) as f:
@@ -35,11 +38,11 @@ def end_activity():
         f"{st.session_state.activity_start.date()}.txt", "a", encoding="utf-8"
     ) as f:
         f.write(
-            f'{datetime.datetime.now().strftime("%H:%M:%S")}, "End", {st.session_state.activity_name} \n'
+            f'{datetime.datetime.now(tz).strftime("%H:%M:%S")}, "End", {st.session_state.activity_name} \n'
         )
     st.session_state.activity_in_progress = False
     st.write(
-        f"✨ {st.session_state.activity_name} ended at {datetime.datetime.now().strftime('%d/%m/%Y, %H:%M:%S')} ! "
+        f"✨ {st.session_state.activity_name} ended at {datetime.datetime.now(tz).strftime('%d/%m/%Y, %H:%M:%S')} ! "
     )
     st.session_state.activity_name = ""
     st.balloons()
@@ -84,7 +87,7 @@ def page2():
         st.dataframe(data)
     except:
         st.header(
-            f"🤭 No data available yet, could find the file : {datetime.datetime.now().date()}.txt !"
+            f"🤭 No data available yet, could not find the file : {datetime.datetime.now(tz).date()}.txt !"
         )
 
 
