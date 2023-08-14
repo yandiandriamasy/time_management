@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "time-management"
+version = "0.0.1"
+description = ""
+authors = ["Yandi Andriamasy <yandi.andriamasy@sicara.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10.10"
+pandas = "^2.0.3"
+streamlit = "^1.25.0"
+notion-client = "^2.0.0"
+black = "^23.7.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

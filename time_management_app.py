@@ -3,7 +3,7 @@ import datetime
 import time
 import pandas as pd
 import os
-
+from connect_to_notion import write_new_row
 
 def get_current_hour() -> str:
     current_time = datetime.datetime.now()
@@ -20,6 +20,7 @@ def start_activity():
         f.write(
             f'{st.session_state.activity_start.strftime("%H:%M:%S")}, "Start", {st.session_state.activity_name} \n'
         )
+    write_new_row(st.session_state.activity_name)
 
 
 def show_current_activity():
@@ -46,9 +47,6 @@ def end_activity():
 
 # Streamlit app
 def main():
-    a = st.secrets["NOTION_TOKEN"]
-    st.write(a)
-    st.write(f"test :{a} fin test")
     st.sidebar.title("🗄 Menu")
     pages = ["⌚ Time Management", "👀 Visualize your timeline"]
     page = st.sidebar.radio("Go to", pages)
