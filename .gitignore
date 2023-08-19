@@ -1,6 +1,4 @@
-*.txt
-/connect_to_notion.py
+/2023-08-05.txt
 /my_snowpark_streamlit_app.py
 /test.py
-.vscode/settings.json
-*.json
+/.env

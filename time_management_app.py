@@ -31,6 +31,8 @@ def show_current_activity():
         st.write(
             f"🚀 {st.session_state.activity_name} started at {st.session_state.activity_start.strftime('%d/%m/%Y, %H:%M:%S')} ! "
         )
+        time_elapsed = datetime.datetime.now() - st.session_state.activity_start
+        st.write(f"You have been working on this task for: {time_elapsed}")
 
 
 def end_activity():
@@ -51,10 +53,10 @@ def end_activity():
 # Streamlit app
 def main():
     st.sidebar.title("🗄 Menu")
-    pages = ["⌚ Time Management", "👀 Visualize your timeline"]
+    pages = ["👻Ghost mode", "👀 Visualize your timeline"]
     page = st.sidebar.radio("Go to", pages)
 
-    if page == "⌚ Time Management":
+    if page == "👻Ghost mode":
         page1()
     elif page == "👀 Visualize your timeline":
         page2()
@@ -67,14 +69,14 @@ def page1():
     if "activity_name" not in st.session_state:
         st.session_state.activity_name = ""
 
-    st.title("Time Management ⏱️")
+    st.title("Ghost mode 👻")
     show_current_activity()
     st.text_input("Activity name 📝:", key="widget", on_change=start_activity)
 
     if st.session_state.activity_in_progress:
         print(5)
-        if st.button("Stop activity !"):
-            end_activity()
+        #if st.button("Stop activity !"):
+        #   end_activity()
 
 
 def page2():
