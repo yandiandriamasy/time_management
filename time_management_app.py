@@ -31,7 +31,7 @@ def show_current_activity():
         st.write(
             f"🚀 {st.session_state.activity_name} started at {st.session_state.activity_start.strftime('%d/%m/%Y, %H:%M:%S')} ! "
         )
-        time_elapsed = get_current_hour() - st.session_state.activity_start
+        time_elapsed = datetime.datetime.now(tz) - st.session_state.activity_start
         st.write(f"You have been working on this task for: {time_elapsed}")
 
 
