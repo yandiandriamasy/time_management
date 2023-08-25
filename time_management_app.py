@@ -2,8 +2,7 @@ import streamlit as st
 import datetime
 from src.connect_to_notion import write_new_row, get_table_content
 import pytz
-import plotly.express as px
-import pandas as pd
+from src.utils import create_timeline_plot
 
 tz = pytz.timezone('Europe/Berlin')
 
@@ -87,19 +86,7 @@ def page1():
 def page2():
     try:
         df = get_table_content(TABLE_ID, NOTION_TOKEN)
-        # Convert 'Start Date' to datetime format
-        df['Start Date'] = pd.to_datetime(df['Start Date'])
-
-        # Streamlit App
-        st.title("Task Timeline")
-
-        # Display DataFrame
-        st.write(df)
-
-        # Create a plot using Plotly
-        fig = px.timeline(df, x_start='Start Date', title='Task Timeline', labels={'Task': 'Tasks'}, color='Task')
-        fig.update_yaxes(categoryorder='total ascending')
-
+        fig = create_timeline_plot(df)
         # Show plot in Streamlit
         st.plotly_chart(fig)
     except:
