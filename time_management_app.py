@@ -91,6 +91,7 @@ def page2():
         st.plotly_chart(fig)
     except Exception as e:
         print(e)
+        st.header(f"Got error : {e}")
         st.header(
             f"🤭 OMG, no data available as for {datetime.datetime.now(tz).date()}!"
         )
