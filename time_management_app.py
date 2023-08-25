@@ -13,6 +13,7 @@ NOTION_TOKEN = st.secrets["NOTION_TOKEN"]
 TABLE_ID = st.secrets["TABLE_ID"]
 PRIM_TOKEN = st.secrets["PRIM_TOKEN"]
 
+
 def get_current_hour() -> str:
     current_time = datetime.datetime.now(tz)
     return f"{current_time.hour}:{current_time.minute}"
@@ -35,7 +36,7 @@ def show_current_activity():
     if st.session_state.activity_name != "":
         st.write(
             f"🚀 {st.session_state.activity_name} started at "
-            f"{st.session_state.activity_start.strftime('%d/%m/%Y, %H:%M:%S')} ! "
+            f"{st.session_state.activity_start.strftime('%H:%M:%S')} ! "
         )
         time_elapsed = datetime.datetime.now(tz) - st.session_state.activity_start
         st.write(f"You have been working on this task for: {time_elapsed}")
@@ -80,12 +81,12 @@ def page1():
     st.title("Ghost mode 👻")
     show_current_activity()
     st.text_input("Activity name 📝:", key="widget", on_change=start_activity)
-
-    if st.session_state.activity_in_progress:
-        print(5)
-        # if st.button("Stop activity !"):
-        #   end_activity()
-
+    df = get_table_content(TABLE_ID, NOTION_TOKEN)
+    df = adapt_data_for_plotting(df)
+    fig = create_timeline_plot(df)
+    # Show plot in Streamlit
+    st.plotly_chart(fig)
+    st.dataframe(df)
 
 def page2():
     try:
