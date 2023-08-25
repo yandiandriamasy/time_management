@@ -2,7 +2,7 @@ import streamlit as st
 import datetime
 from src.connect_to_notion import write_new_row, get_table_content
 import pytz
-from src.utils import create_timeline_plot
+from src.utils import create_timeline_plot, adapt_data_for_plotting
 
 tz = pytz.timezone('Europe/Berlin')
 
@@ -86,7 +86,7 @@ def page1():
 def page2():
     try:
         df = get_table_content(TABLE_ID, NOTION_TOKEN)
-        fig = create_timeline_plot(df)
+        fig = create_timeline_plot(adapt_data_for_plotting(df))
         # Show plot in Streamlit
         st.plotly_chart(fig)
     except Exception as e:
