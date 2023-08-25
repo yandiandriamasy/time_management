@@ -20,7 +20,8 @@ def adapt_data_for_plotting(df):
     df['Start date'] = pd.to_datetime(df['Start date'])
     # Create 'End Date' column
     df['End date'] = df['Start date'].shift(1)  # Use the start date of the next task as the end date
-    df.loc[df.index[0], 'End date'] = datetime.now()  # For the last task, set the end date as "now"
+    tz = pytz.timezone("Europe/Paris")
+    df.loc[df.index[0], 'End date'] = datetime.now().astimezone(tz)  # For the last task, set the end date as "now"
     return df
 
 
