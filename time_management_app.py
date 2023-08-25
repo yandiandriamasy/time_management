@@ -3,13 +3,15 @@ import datetime
 from src.connect_to_notion import write_new_row, get_table_content
 import pytz
 from src.utils import create_timeline_plot, adapt_data_for_plotting
+from src.constants import REFERENCE_RUEIL_RER_A
+from src.connect_to_prim import get_next_departures, format_prim_response
 
 tz = pytz.timezone('Europe/Berlin')
 
-# Your Notion API credentials
+# Different credentials
 NOTION_TOKEN = st.secrets["NOTION_TOKEN"]
 TABLE_ID = st.secrets["TABLE_ID"]
-
+PRIM_TOKEN = st.secrets["PRIM_TOKEN"]
 
 def get_current_hour() -> str:
     current_time = datetime.datetime.now(tz)
@@ -57,13 +59,15 @@ def end_activity():
 # Streamlit app
 def main():
     st.sidebar.title("🗄 Menu")
-    pages = ["👻Ghost mode", "👀 Visualize your timeline"]
+    pages = ["👻Ghost mode", "👀Visualize your timeline", "🚆Go home"]
     page = st.sidebar.radio("Go to", pages)
 
     if page == "👻Ghost mode":
         page1()
-    elif page == "👀 Visualize your timeline":
+    elif page == "👀Visualize your timeline":
         page2()
+    elif page == "🚆Go home":
+        page3()
 
 
 def page1():
@@ -97,6 +101,14 @@ def page2():
         st.header(
             f"🤭 OMG, no data available as for {datetime.datetime.now(tz).date()}!"
         )
+
+
+def page3():
+    st.title("Go home 🚆")
+    st.header("You can go home now, see you tomorrow!")
+    st.header("Next departures from Rueil-Malmaison RER A station:")
+    st.dataframe(format_prim_response(get_next_departures(REFERENCE_RUEIL_RER_A, PRIM_TOKEN)))
+    st.balloons()
 
 
 if __name__ == "__main__":
