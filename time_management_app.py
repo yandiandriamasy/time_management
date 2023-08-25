@@ -86,9 +86,11 @@ def page1():
 def page2():
     try:
         df = get_table_content(TABLE_ID, NOTION_TOKEN)
-        fig = create_timeline_plot(adapt_data_for_plotting(df))
+        df = adapt_data_for_plotting(df)
+        fig = create_timeline_plot(df)
         # Show plot in Streamlit
         st.plotly_chart(fig)
+        st.dataframe(df)
     except Exception as e:
         print(e)
         st.header(f"Got error : {e}")
