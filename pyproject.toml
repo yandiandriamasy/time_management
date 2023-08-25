@@ -11,6 +11,7 @@ pandas = "^2.0.3"
 streamlit = "^1.25.0"
 notion-client = "^2.0.0"
 black = "^23.7.0"
+python-dotenv = "^1.0.0"
 
 
 [build-system]

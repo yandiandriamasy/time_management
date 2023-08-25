@@ -1,7 +1,7 @@
 import requests
-import streamlit as st
 from datetime import datetime
 import pandas as pd
+from src.utils import convert_utc_to_paris_time
 
 
 def write_new_row(new_row: str, notion_token: str):
@@ -44,5 +44,5 @@ def get_table_content(table_id: str, notion_token: str):
     response = requests.post(url, headers=headers, json=data)
     json_response = response.json()
     titles = [result["properties"]["Name"]["title"][0]["plain_text"] for result in json_response["results"]]
-    start_dates = [result["created_time"] for result in json_response["results"]]
+    start_dates = [convert_utc_to_paris_time(result["created_time"]) for result in json_response["results"]]
     return pd.DataFrame({"Task": titles, "Start date": start_dates})
