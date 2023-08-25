@@ -86,7 +86,6 @@ def page1():
     fig = create_timeline_plot(df)
     # Show plot in Streamlit
     st.plotly_chart(fig)
-    st.dataframe(df)
 
 def page2():
     try:

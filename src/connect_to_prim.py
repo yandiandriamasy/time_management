@@ -37,8 +37,7 @@ def format_prim_response(data: dict) -> pd.DataFrame:
 
     df['ExpectedArrivalTime'] = pd.to_datetime(df['ExpectedArrivalTime'])
     tz = pytz.timezone("Europe/Paris")
-    df['ExpectedArrivalTime'] = df['ExpectedArrivalTime'].dt.tz_convert(tz)
-    df['ExpectedArrivalTime'].apply(lambda x: x.strftime('%H:%M:%S'))
+    df['ExpectedArrivalTime'] = df['ExpectedArrivalTime'].dt.tz_convert(tz).apply(lambda x: x.strftime('%H:%M:%S'))
     return df
 
 
