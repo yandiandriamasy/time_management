@@ -89,7 +89,8 @@ def page2():
         fig = create_timeline_plot(df)
         # Show plot in Streamlit
         st.plotly_chart(fig)
-    except:
+    except Exception as e:
+        print(e)
         st.header(
             f"🤭 OMG, no data available as for {datetime.datetime.now(tz).date()}!"
         )
