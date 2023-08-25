@@ -1,6 +1,6 @@
 import streamlit as st
 import datetime
-from time_management.scr.connect_to_notion import write_new_row, get_table_content
+from src.connect_to_notion import write_new_row, get_table_content
 import pytz
 
 tz = pytz.timezone('Europe/Berlin')
