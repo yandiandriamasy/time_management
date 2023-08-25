@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 import requests
-
+import pytz
 
 def format_prim_response(data: dict) -> pd.DataFrame:
     """Format the response from the prim algorithm to a dataframe.
@@ -35,7 +35,8 @@ def format_prim_response(data: dict) -> pd.DataFrame:
     })
 
     df['ExpectedArrivalTime'] = pd.to_datetime(df['ExpectedArrivalTime'])
-    df['ExpectedArrivalTime'] = df['ExpectedArrivalTime'].dt.strftime('%H:%M:%S')
+    tz = pytz.timezone("Europe/Paris")
+    df['ExpectedArrivalTime'] = df['ExpectedArrivalTime'].dt.astimezone(tz).strftime('%H:%M:%S')
     return df
 
 
