@@ -21,7 +21,7 @@ def adapt_data_for_plotting(df):
     # Create 'End Date' column
     df['End date'] = df['Start date'].shift(1)  # Use the start date of the next task as the end date
     tz = pytz.timezone("Europe/Paris")
-    df.loc[df.index[0], 'End date'] = datetime.now().astimezone(tz)  # For the last task, set the end date as "now"
+    df.loc[df.index[0], 'End date'] = datetime.now().astimezone(tz).strftime("%d/%m/%Y, %H:%M:%S")  # For the last task, set the end date as "now"
     return df
 
 
