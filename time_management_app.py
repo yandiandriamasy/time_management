@@ -1,11 +1,13 @@
 import streamlit as st
 import datetime
-import time
-import pandas as pd
-import os
-from connect_to_notion import write_new_row
+from connect_to_notion import write_new_row, get_table_content
 import pytz
+
 tz = pytz.timezone('Europe/Berlin')
+
+# Your Notion API credentials
+NOTION_TOKEN = st.secrets["NOTION_TOKEN"]
+TABLE_ID = st.secrets["TABLE_ID"]
 
 
 def get_current_hour() -> str:
@@ -18,18 +20,19 @@ def start_activity():
     st.session_state.activity_name = st.session_state.widget
     st.session_state.activity_start = datetime.datetime.now(tz)
     with open(
-        f"{st.session_state.activity_start.date()}.txt", "a", encoding="utf-8"
+            f"{st.session_state.activity_start.date()}.txt", "a", encoding="utf-8"
     ) as f:
         f.write(
             f'{st.session_state.activity_start.strftime("%H:%M:%S")}, "Start", {st.session_state.activity_name} \n'
         )
-    write_new_row(st.session_state.activity_name)
+    write_new_row(st.session_state.activity_name, NOTION_TOKEN)
 
 
 def show_current_activity():
     if st.session_state.activity_name != "":
         st.write(
-            f"🚀 {st.session_state.activity_name} started at {st.session_state.activity_start.strftime('%d/%m/%Y, %H:%M:%S')} ! "
+            f"🚀 {st.session_state.activity_name} started at "
+            f"{st.session_state.activity_start.strftime('%d/%m/%Y, %H:%M:%S')} ! "
         )
         time_elapsed = datetime.datetime.now(tz) - st.session_state.activity_start
         st.write(f"You have been working on this task for: {time_elapsed}")
@@ -37,7 +40,7 @@ def show_current_activity():
 
 def end_activity():
     with open(
-        f"{st.session_state.activity_start.date()}.txt", "a", encoding="utf-8"
+            f"{st.session_state.activity_start.date()}.txt", "a", encoding="utf-8"
     ) as f:
         f.write(
             f'{datetime.datetime.now(tz).strftime("%H:%M:%S")}, "End", {st.session_state.activity_name} \n'
@@ -75,21 +78,17 @@ def page1():
 
     if st.session_state.activity_in_progress:
         print(5)
-        #if st.button("Stop activity !"):
+        # if st.button("Stop activity !"):
         #   end_activity()
 
 
 def page2():
     try:
-        data = pd.read_csv(
-            f"{st.session_state.activity_start.date()}.txt",
-            header=None,
-            names=["Time", "Type", "Name of activity"],
-        )
+        data = get_table_content(TABLE_ID, NOTION_TOKEN)
         st.dataframe(data)
     except:
         st.header(
-            f"🤭 No data available yet, could not find the file : {datetime.datetime.now(tz).date()}.txt !"
+            f"🤭 OMG, no data available as for {datetime.datetime.now(tz).date()}!"
         )
 
 
