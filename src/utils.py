@@ -16,18 +16,31 @@ def convert_utc_to_paris_time(utc_time: str) -> str:
 
 
 def adapt_data_for_plotting(df):
+    """Adapt data for plotting"""
     # Convert 'Start Date' to datetime format
-    df['Start date'] = pd.to_datetime(df['Start date'])
+    df["Start date"] = pd.to_datetime(df["Start date"])
     # Create 'End Date' column
-    df['End date'] = df['Start date'].shift(1)  # Use the start date of the next task as the end date
+    df["End date"] = df["Start date"].shift(
+        1
+    )  # Use the start date of the next task as the end date
     tz = pytz.timezone("Europe/Paris")
-    df.loc[df.index[0], 'End date'] = datetime.now().astimezone(tz).strftime("%d/%m/%Y, %H:%M:%S")  # For the last task, set the end date as "now"
+    df.loc[df.index[0], "End date"] = max(
+        datetime.now().astimezone(tz), df["Start date"].iloc[0] + pd.DateOffset(days=1)
+    ).strftime(
+        "%d/%m/%Y, %H:%M:%S"
+    )  # For the last task, set the end date as "now"
     return df
 
 
 def create_timeline_plot(df):
     # Create a plot using Plotly
-    fig = px.timeline(df, x_start='Start date', x_end='End date', title='Task Timeline', labels={'Task': 'Tasks'},
-                      color='Task')
-    fig.update_yaxes(categoryorder='total ascending')
+    fig = px.timeline(
+        df,
+        x_start="Start date",
+        x_end="End date",
+        title="Task Timeline",
+        labels={"Task": "Tasks"},
+        color="Task",
+    )
+    fig.update_yaxes(categoryorder="total ascending")
     return fig
