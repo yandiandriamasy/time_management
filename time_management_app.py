@@ -100,6 +100,13 @@ def page1():
                 total_seconds = (
                     datetime.datetime.now(tz) - st.session_state.activity_start
                 ).total_seconds()
+                if total_seconds > 60 * 15:
+                    st.warning(
+                        f"""
+                        ⚠️ More than 15 minutes on {st.session_state.activity_name} ! 
+                        Do you need help ?
+                        """
+                    )
                 # Calculate hours, minutes, and seconds
                 hours, remainder = divmod(total_seconds, 3600)
                 minutes, seconds = divmod(remainder, 60)
