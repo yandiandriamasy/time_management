@@ -88,22 +88,30 @@ def page1():
         font-weight: 300;
         color: #6f737d;
     }
+    .andon {
+        font-size: 40px;
+        font-weight: 300;
+        color: #9e3e80;
+    }
     </style>
     """,
         unsafe_allow_html=True,
     )
 
-    async def watch(test):
+    async def watch(test, warn_message):
         while True:
             if st.session_state.activity_name != "":
                 total_seconds = (
                     datetime.datetime.now(tz) - st.session_state.activity_start
                 ).total_seconds()
                 if total_seconds > 60 * 1:
-                    test.markdown(
+                    warn_message.markdown(
                         """
-                        ⚠️ More than 15 minutes on current task ! 
+                        ⚠️
+                        <p class="andon">
+                        More than 15 minutes on current task ! 
                         Do you need help ?
+                        </p>
                         """
                     )
                 # Calculate hours, minutes, and seconds
@@ -127,8 +135,9 @@ def page1():
             await asyncio.sleep(1)
 
     test = st.empty()
+    warn_message = st.empty()
     st.text_input("Activity name 📝:", key="widget", on_change=start_activity)
-    asyncio.run(watch(test))
+    asyncio.run(watch(test, warn_message))
 
 
 def page2():
