@@ -84,9 +84,9 @@ def page1():
         """
     <style>
     .time {
-        font-size: 12px;
+        font-size: 20px;
         font-weight: 700;
-        color: #ec5953;
+        color: #083bd4;
     }
     </style>
     """,
@@ -109,26 +109,20 @@ def page1():
 
                 test.markdown(
                     f"""
-                    🚀 You have being working on this task for 
+                    🚀 
                     <p class="time">
-                        {formatted_time}
+                        You have being working on this task for {formatted_time}
                     </p>
                     """,
                     unsafe_allow_html=True,
                 )
             else:
                 test.markdown("🚀 Ready to start the day ?")
-            r = await asyncio.sleep(1)
+            await asyncio.sleep(1)
 
     test = st.empty()
     st.text_input("Activity name 📝:", key="widget", on_change=start_activity)
     asyncio.run(watch(test))
-    # today_midnight = datetime.datetime(now.year, now.month, now.day)
-    # df = get_table_content(TABLE_ID, NOTION_TOKEN, today_midnight)
-    # df = adapt_data_for_plotting(df)
-    # fig = create_timeline_plot(df)
-    # # Show plot in Streamlit
-    # st.plotly_chart(fig)
 
 
 def page2():
