@@ -102,11 +102,8 @@ def page1():
                 if total_seconds > 60 * 1:
                     warn_message.markdown(
                         """
-                        ⚠️
-                        <p class="andon">
-                        More than 15 minutes on current task ! 
-                        Do you need help ?
-                        </p>
+                        😅 More than 15 minutes on current task ! 
+                        💡 Do you need help ?
                         """
                     )
                 # Calculate hours, minutes, and seconds
