@@ -82,12 +82,12 @@ def page1():
     show_current_activity()
     st.text_input("Activity name 📝:", key="widget", on_change=start_activity)
     now = datetime.datetime.now()
-    today_midnight = datetime.datetime(now.year, now.month, now.day)
-    df = get_table_content(TABLE_ID, NOTION_TOKEN, today_midnight)
-    df = adapt_data_for_plotting(df)
-    fig = create_timeline_plot(df)
-    # Show plot in Streamlit
-    st.plotly_chart(fig)
+    # today_midnight = datetime.datetime(now.year, now.month, now.day)
+    # df = get_table_content(TABLE_ID, NOTION_TOKEN, today_midnight)
+    # df = adapt_data_for_plotting(df)
+    # fig = create_timeline_plot(df)
+    # # Show plot in Streamlit
+    # st.plotly_chart(fig)
 
 
 def page2():
