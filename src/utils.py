@@ -24,8 +24,11 @@ def adapt_data_for_plotting(df):
         1
     )  # Use the start date of the next task as the end date
     tz = pytz.timezone("Europe/Paris")
-    df.loc[df.index[0], "End date"] = max(
-        datetime.now().astimezone(tz), df["Start date"].iloc[0] + pd.DateOffset(days=1)
+    df.loc[df.index[0], "End date"] = min(
+        datetime.now().astimezone(tz),
+        (df["Start date"].iloc[0] + pd.DateOffset(days=1))
+        .replace(hour=0, minute=0)
+        .tz_localize(tz),
     ).strftime(
         "%d/%m/%Y, %H:%M:%S"
     )  # For the last task, set the end date as "now"
