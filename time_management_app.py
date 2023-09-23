@@ -101,7 +101,7 @@ def page1():
                     f"""
                     🚀 You have being working on this task for 
                     <p class="time">
-                        {(datetime.datetime.now(tz) - st.session_state.activity_start).isoformat()}
+                        {(datetime.datetime.now(tz) - st.session_state.activity_start).strftime("%H:%M:%S")}
                     </p>
                     """,
                     unsafe_allow_html=True,
