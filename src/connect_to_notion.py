@@ -38,6 +38,7 @@ def get_table_content(table_id: str, notion_token: str, day_midnight: date):
             "property": "Created time",
             "date": {
                 "on_or_after": day_midnight.isoformat(),
+                "on_or_before": day_midnight.isoformat(),
             },
         }
     }
