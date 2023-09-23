@@ -5,6 +5,7 @@ import pytz
 from src.utils import create_timeline_plot, adapt_data_for_plotting
 from src.constants import REFERENCE_RUEIL_RER_A
 from src.connect_to_prim import get_next_departures, format_prim_response
+import asyncio
 
 tz = pytz.timezone("Europe/Berlin")
 
@@ -79,9 +80,35 @@ def page1():
         st.session_state.activity_name = ""
 
     st.title("Ghost mode 👻")
-    show_current_activity()
+    st.markdown(
+        """
+    <style>
+    .time {
+        font-size: 130px !important;
+        font-weight: 700 !important;
+        color: #ec5953 !important;
+    }
+    </style>
+    """,
+        unsafe_allow_html=True,
+    )
+
+    async def watch(test):
+        while True:
+            show_current_activity()
+            test.markdown(
+                f"""
+                <p class="time">
+                    {str(datetime.datetime.now())}
+                </p>
+                """,
+                unsafe_allow_html=True,
+            )
+            r = await asyncio.sleep(1)
+
+    test = st.empty()
+    asyncio.run(watch(test))
     st.text_input("Activity name 📝:", key="widget", on_change=start_activity)
-    now = datetime.datetime.now()
     # today_midnight = datetime.datetime(now.year, now.month, now.day)
     # df = get_table_content(TABLE_ID, NOTION_TOKEN, today_midnight)
     # df = adapt_data_for_plotting(df)
