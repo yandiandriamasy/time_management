@@ -85,8 +85,8 @@ def page1():
     <style>
     .time {
         font-size: 20px;
-        font-weight: 700;
-        color: #083bd4;
+        font-weight: 300;
+        color: #6f737d;
     }
     </style>
     """,
@@ -109,9 +109,9 @@ def page1():
 
                 test.markdown(
                     f"""
-                    🚀 
+                    🚀 Current task : {st.session_state.activity_name}
                     <p class="time">
-                        You have being working on this task for {formatted_time}
+                        Time spent : {formatted_time}
                     </p>
                     """,
                     unsafe_allow_html=True,
