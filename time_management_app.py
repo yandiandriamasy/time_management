@@ -100,7 +100,7 @@ def page1():
                 total_seconds = (
                     datetime.datetime.now(tz) - st.session_state.activity_start
                 ).total_seconds()
-                if total_seconds > 60 * 15:
+                if total_seconds > 60 * 1:
                     st.warning(
                         f"""
                         ⚠️ More than 15 minutes on {st.session_state.activity_name} ! 
