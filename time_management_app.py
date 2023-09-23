@@ -88,6 +88,8 @@ def page1():
         font-weight: 300;
         color: #6f737d;
     }
+    </style>
+    <style>
     .andon {
         font-size: 40px;
         font-weight: 300;
