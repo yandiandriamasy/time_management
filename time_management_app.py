@@ -96,15 +96,18 @@ def page1():
     async def watch(test):
         while True:
             # show_current_activity()
-            test.markdown(
-                f"""
-                You have being working on this task for 
-                <p class="time">
-                    {datetime.datetime.now(tz) - st.session_state.activity_start}
-                </p>
-                """,
-                unsafe_allow_html=True,
-            )
+            if st.session_state.activity_name != "":
+                test.markdown(
+                    f"""
+                    🚀 You have being working on this task for 
+                    <p class="time">
+                        {datetime.datetime.now(tz) - st.session_state.activity_start}
+                    </p>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                test.markdown("🚀 Ready to start the day ?")
             r = await asyncio.sleep(1)
 
     test = st.empty()
