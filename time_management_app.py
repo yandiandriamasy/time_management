@@ -84,9 +84,9 @@ def page1():
         """
     <style>
     .time {
-        font-size: 130px !important;
-        font-weight: 700 !important;
-        color: #ec5953 !important;
+        font-size: 12px;
+        font-weight: 700;
+        color: #ec5953;
     }
     </style>
     """,
@@ -95,11 +95,12 @@ def page1():
 
     async def watch(test):
         while True:
-            show_current_activity()
+            # show_current_activity()
             test.markdown(
                 f"""
+                You have being working on this task for 
                 <p class="time">
-                    {str(datetime.datetime.now())}
+                    {datetime.datetime.now(tz) - st.session_state.activity_start}
                 </p>
                 """,
                 unsafe_allow_html=True,
