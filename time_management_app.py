@@ -91,6 +91,7 @@ def page1():
 
 
 def page2():
+    st.caption("👀 Visualize your timeline")
     filter_date = st.date_input("😎 What day do you want to visualize ? ")
     df = get_table_content(TABLE_ID, NOTION_TOKEN, filter_date)
     df = adapt_data_for_plotting(df)
