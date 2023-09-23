@@ -89,13 +89,6 @@ def page1():
         color: #6f737d;
     }
     </style>
-    <style>
-    .andon {
-        font-size: 40px;
-        font-weight: 300;
-        color: #9e3e80;
-    }
-    </style>
     """,
         unsafe_allow_html=True,
     )
