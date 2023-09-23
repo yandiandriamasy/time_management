@@ -97,11 +97,21 @@ def page1():
         while True:
             # show_current_activity()
             if st.session_state.activity_name != "":
+                total_seconds = (
+                    datetime.datetime.now(tz) - st.session_state.activity_start
+                ).total_seconds()
+                # Calculate hours, minutes, and seconds
+                hours, remainder = divmod(total_seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+
+                # Format the result as a string
+                formatted_time = f"{int(hours)}H:{int(minutes)}M:{int(seconds)}S"
+
                 test.markdown(
                     f"""
                     🚀 You have being working on this task for 
                     <p class="time">
-                        {(datetime.datetime.now(tz) - st.session_state.activity_start).strftime("%H:%M:%S")}
+                        {formatted_time}
                     </p>
                     """,
                     unsafe_allow_html=True,
